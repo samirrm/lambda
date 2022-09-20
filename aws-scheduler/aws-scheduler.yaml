@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  awsscheduler:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: aws-scheduler.handler
+      Runtime: python3.7
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 300
+      Role: 'arn:aws:iam::123123123123123:role/scheduler_lambda'
+      Environment:
+        Variables:
+          DEFAULT: >-
+            {"mon": {"start": 7, "stop": 20},"tue": {"start": 7, "stop":
+            20},"wed": {"start": 7, "stop": 20},"thu": {"start": 7, "stop": 20},
+            "fri": {"start": 7, "stop": 20}}
+          EC2_SCHEDULE: 'true'
+          EXCLUDE: ''
+          RDS_SCHEDULE: 'true'
+          SCHEDULE_TAG_FORCE: 'false'
+          TAG: schedule
+          TIME: gmt
+          schedule: >-
+            mon_start=9 mon_stop=23 tue_start=9 tue_stop=23 wed_start=9
+            wed_stop=23 thu_start=9 thu_stop=23 fri_start=9 fri_stop=23
